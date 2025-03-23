@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Objects;
 
 public class Patient {
 	public static int globalID = 100000;
@@ -8,8 +9,9 @@ public class Patient {
 	private String lastName;
 	private String CNP;
 	private String phoneNumber;
+	private PatientFile patientFile;
 
-	private String formatName(String word) {
+	public static String formatString(String word) {
 		if (word == null || word.isEmpty()) {
 			return word;
 		}
@@ -18,16 +20,23 @@ public class Patient {
 	}
 
 	public Patient(String lastName, String firstName, String CNP, String phoneNumber) {
-		this.lastName = formatName(lastName);
-		this.firstName = formatName(firstName);
+		this.lastName = formatString(lastName);
+		this.firstName = formatString(firstName);
 		this.CNP = CNP;
 		this.phoneNumber = phoneNumber;
-		this.ID = globalID++;
+		this.ID = globalID++;	
+		this.patientFile = new PatientFile();
 	}
 	
 	public int getID() {
 		return ID;
 	}
+	
+	
+	
+	public PatientFile getPatientFile() {
+        return patientFile;
+    }
 	
 	public String getFullName() {
 		return lastName + " " + firstName;
@@ -91,5 +100,31 @@ public class Patient {
 
 		return year + " years and " + month + " months";
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(CNP);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Patient other = (Patient) obj;
+		return Objects.equals(CNP, other.CNP);
+	}
+	
+	public void showPatientFile() {
+		
+	}
+	
+	public void newVisit() {
+		this.patientFile = new PatientFile();
+	}
+	
 
 }

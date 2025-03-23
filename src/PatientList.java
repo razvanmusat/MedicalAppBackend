@@ -16,13 +16,17 @@ public class PatientList {
 		}
 		return instance;
 	}
+	
 
-	public boolean addPatient(Patient patient) {
-		if (patient.getCNP() == null) {
-			System.err.println("Cannot add a null patient");
-			return false;
+	public void addPatient(Patient newPatient) {
+		for (Patient patient : patientList) {
+			if (newPatient.equals(patient)) {
+				System.out.println("Patient " + newPatient.getFullName() + " is allready registered and has ID " + patient.getID());
+				return;
+			}
 		}
-		return patientList.add(patient);
+		patientList.add(newPatient);
+		System.out.println("Patient " + newPatient.getFullName() + " has been added succesfully!");
 	}
 
 	public void showPatients() {
@@ -34,7 +38,7 @@ public class PatientList {
 	public void searchByCNP(String str) {
 		for (Patient patient : patientList) {
 			if (str.equals(patient.getCNP())) {
-				System.out.println(patient);
+				System.out.println(patient.getFullName());
 				break;
 			}
 		}
@@ -43,7 +47,16 @@ public class PatientList {
 	public void searchByID(int ID) {
 		for (Patient patient : patientList) {
 			if (ID == patient.getID()) {
-				System.out.println(patient);
+				System.out.println(patient.getFullName());
+				break;
+			}
+		}
+	}
+
+	public void searchByPhoneNumber(String phoneNumber) {
+		for (Patient patient : patientList) {
+			if (phoneNumber.equals(patient.getPhoneNumber())) {
+				System.out.println("ID: " + patient.getID() + " - " + patient.getFullName());
 				break;
 			}
 		}

@@ -1,0 +1,15 @@
+# Eclipse specific
+.project
+.classpath
+.settings/
+
+# Fișierele de build
+bin/
+target/
+
+# Fișierele de log
+*.log
+
+# Fișierele temporare
+*.tmp
+

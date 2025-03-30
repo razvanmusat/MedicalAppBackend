@@ -3,7 +3,7 @@ import java.time.Period;
 import java.util.Objects;
 
 public class Patient {
-	public static int globalID = 100000;
+	private static int globalID = 100000;
 	private int ID;
 	private String firstName;
 	private String lastName;
@@ -22,22 +22,20 @@ public class Patient {
 	public Patient(String lastName, String firstName, String CNP, String phoneNumber) {
 		this.lastName = formatString(lastName);
 		this.firstName = formatString(firstName);
-		this.CNP = CNP;
+		this.CNP = CNP.trim();
 		this.phoneNumber = phoneNumber;
-		this.ID = globalID++;	
+		this.ID = globalID++;
 		this.patientFile = new PatientFile();
 	}
-	
+
 	public int getID() {
 		return ID;
 	}
-	
-	
-	
+
 	public PatientFile getPatientFile() {
-        return patientFile;
-    }
-	
+		return patientFile;
+	}
+
 	public String getFullName() {
 		return lastName + " " + firstName;
 	}
@@ -110,21 +108,18 @@ public class Patient {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
+		if (obj == null || getClass() != obj.getClass())
 			return false;
 		Patient other = (Patient) obj;
 		return Objects.equals(CNP, other.CNP);
 	}
-	
+
 	public void showPatientFile() {
-		
+
 	}
-	
+
 	public void newVisit() {
 		this.patientFile = new PatientFile();
 	}
-	
 
 }

@@ -18,48 +18,62 @@ public class PatientList {
 	}
 	
 
-	public void addPatient(Patient newPatient) {
-		for (Patient patient : patientList) {
-			if (newPatient.equals(patient)) {
-				System.out.println("Patient " + newPatient.getFullName() + " is allready registered and has ID " + patient.getID());
-				return;
-			}
-		}
+	public void addPatient(Patient newPatient) {		
 		patientList.add(newPatient);
-		System.out.println("Patient " + newPatient.getFullName() + " has been added succesfully!");
+		System.out.println("Patient " + newPatient.getFullName() + " has been added successfully!");
 	}
 
 	public void showPatients() {
 		for (Patient patient : patientList) {
-			System.out.println(patient);
+			System.out.println(patient.getFullName());
 		}
 	}
 
-	public void searchByCNP(String str) {
+	public Patient searchByCNP(String CNP) {
 		for (Patient patient : patientList) {
-			if (str.equals(patient.getCNP())) {
-				System.out.println(patient.getFullName());
-				break;
+			if (CNP.equals(patient.getCNP())) {					
+				return patient;
 			}
 		}
+		return null;
 	}
 
-	public void searchByID(int ID) {
+	public Patient searchByID(int ID) {
 		for (Patient patient : patientList) {
 			if (ID == patient.getID()) {
-				System.out.println(patient.getFullName());
-				break;
+				return patient;
 			}
 		}
+		return null;
+	}
+	
+	public void searchByName (String lastName, String firstName) {
+		String fullName = lastName.trim() + " " + firstName.trim();
+		boolean found = false;
+		
+		for (Patient patient : patientList) {
+			if (fullName.equalsIgnoreCase(patient.getFullName())) {
+				System.out.println(patient.getFullName());
+				found = true;
+			}
+		}
+		if (!found) {
+	        System.out.println("No patients found with this name.");
+	    }
 	}
 
 	public void searchByPhoneNumber(String phoneNumber) {
-		for (Patient patient : patientList) {
-			if (phoneNumber.equals(patient.getPhoneNumber())) {
-				System.out.println("ID: " + patient.getID() + " - " + patient.getFullName());
-				break;
-			}
-		}
+		boolean found = false;	    
+
+	    for (Patient patient : patientList) {
+	        if (phoneNumber.equals(patient.getPhoneNumber())) {
+	            System.out.println(patient.getFullName());
+	            found = true;
+	        }
+	    }
+	    if (!found) {
+	        System.out.println("No patients found with this phone number.");
+	    }
 	}
 
 }
